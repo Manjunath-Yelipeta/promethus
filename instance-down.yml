@@ -1,0 +1,11 @@
+groups:
+  - name: instance-health
+    rules:
+      - alert: InstanceDown
+        expr: up{job="node-exporter-ec2"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance is down"
+          description: "Prometheus target {{ $labels.instance }} has been down for more than 1 minute."
